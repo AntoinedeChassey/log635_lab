@@ -3,6 +3,7 @@
 		[
 			{
 			"id_human": 1,
+			"id_room": 1,
 			"name": "Rick",
 			"life": 100,
 			"age": 45,
@@ -12,6 +13,7 @@
 			},
 			{
 			"id_human": 2,
+			"id_room": 2,
 			"name": "Daryl",
 			"life": 80,
 			"age": 38,
@@ -21,6 +23,7 @@
 			},
 			{
 			"id_human": 3,
+			"id_room": 3,
 			"name": "Michonne",
 			"life": 90,
 			"age": 35,
@@ -32,76 +35,83 @@
 		
 "items":
 		[
-		{
-		"id_item": 1,
-		"name": "tooth brush",
-		"combat_points": 20,
-		"resistance": 20
-		},
-		{
-		"id_item": 2,
-		"name": "baseball bat",
-		"combat_points": 55,
-		"resistance": 35
-		},
-		{
-		"id_item": 3,
-		"name": "shotgun",
-		"combat_points": 95,
-		"resistance": 80
-		}
+			{
+			"id_item": 1,
+			"id_room": 1,
+			"name": "tooth brush",
+			"combat_points": 20,
+			"resistance": 20
+			},
+			{
+			"id_item": 2,
+			"id_room": 2,
+			"name": "baseball bat",
+			"combat_points": 55,
+			"resistance": 35
+			},
+			{
+			"id_item": 3,
+			"id_room": 3,
+			"name": "shotgun",
+			"combat_points": 95,
+			"resistance": 80
+			}
 		],
 
 "rooms":
 		[
-		{
-		"id_room": 1,
-		"id_item": 1,
-		"size": 15,
-		"light": 60
-		},
-		{
-		"id_room": 2,
-		"id_item": 2,
-		"size": 5,
-		"light": 20
-		},
-		{
-		"id_room": 3,
-		"id_item": 3,
-		"size": 50,
-		"light": 10
-		}
+			{
+			"id_room": 1,
+			"name": "Salle de bain",
+			"size": 15,
+			"light": 60
+			},
+			{
+			"id_room": 2,
+			"name": "Salon",
+			"size": 5,
+			"light": 20
+			},
+			{
+			"id_room": 3,
+			"name": "Chambre",
+			"size": 50,
+			"light": 10
+			}
 		],
 		
 "zombies":
 		[
 			{
 			"id_zombie": 1,
-			"name": "Boby",
 			"id_room": 1,
+			"name": "Boby",
+			"life": 100,
 			"aggressivity": 20,
 			"size": 185
 			},
 			{
 			"id_zombie": 2,
-			"name": "Boby",
 			"id_room": 1,
+			"name": "Antoine",
+			"life": 100,
 			"aggressivity": 45,
-			"size": 185
+			"size": 153
 			},
 			{
 			"id_zombie": 3,
-			"name": "Boby",
-			"id_room": 1,
-			"aggressivity": 45,
+			"id_room": 2,
+			"name": "Raoul",
+			"life": 100,
+			"aggressivity": 95,
 			"size": 185
 			},
 			{
 			"id_zombie": 4,
-			"name": "Boby",
+			"name": "Louis",
+			"life": 100,
 			"id_room": 1,
-			"aggressivity": 45,
+			"aggressivity": 55,
 			"size": 185
 			}		
 		]
