@@ -33,9 +33,8 @@ public class Build {
 			Object obj = parser.parse(new FileReader("resources/config.json"));
 
 			JSONObject jsonObject = (JSONObject) obj;
-			System.out.println(obj);
 
-			// build humans
+			// get humans
 			JSONArray json_humans = (JSONArray) jsonObject.get("humans");
 			@SuppressWarnings("rawtypes")
 			Iterator i0 = json_humans.iterator();
@@ -53,10 +52,9 @@ public class Build {
 
 				Human human = new Human(id_human, id_room, name, life, age, size, weight, combat_capacity);
 				humans.add(human);
-				System.out.println(human.getName());
 			}
 
-			// build items
+			// get items
 			JSONArray json_items = (JSONArray) jsonObject.get("items");
 			@SuppressWarnings("rawtypes")
 			Iterator i1 = json_items.iterator();
@@ -71,10 +69,9 @@ public class Build {
 
 				Item item = new Item(id_item, id_room, name, combat_points, resistance);
 				items.add(item);
-				System.out.println(item.getName());
 			}
 
-			// build rooms
+			// get rooms
 			JSONArray json_rooms = (JSONArray) jsonObject.get("rooms");
 			@SuppressWarnings("rawtypes")
 			Iterator i2 = json_rooms.iterator();
@@ -88,10 +85,9 @@ public class Build {
 
 				Room room = new Room(id_room, name, size, light);
 				rooms.add(room);
-				System.out.println(room.getName());
 			}
 
-			// build zombies
+			// get zombies
 			JSONArray json_zombies = (JSONArray) jsonObject.get("zombies");
 			@SuppressWarnings("rawtypes")
 			Iterator i3 = json_zombies.iterator();
@@ -107,7 +103,6 @@ public class Build {
 
 				Zombie zombie = new Zombie(id_zombie, id_room, name, life, size, aggressivity);
 				zombies.add(zombie);
-				System.out.println(zombie.getName());
 			}
 
 		} catch (FileNotFoundException e) {
@@ -118,4 +113,38 @@ public class Build {
 			e.printStackTrace();
 		}
 	}
+
+	public List<Human> getHumans() {
+		return humans;
+	}
+
+	public void setHumans(List<Human> humans) {
+		this.humans = humans;
+	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
+	public List<Room> getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
+	}
+
+	public List<Zombie> getZombies() {
+		return zombies;
+	}
+
+	public void setZombies(List<Zombie> zombies) {
+		this.zombies = zombies;
+	}
+	
+	
 }
