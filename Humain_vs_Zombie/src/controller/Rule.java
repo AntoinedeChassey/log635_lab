@@ -23,12 +23,11 @@ public class Rule {
 		combat();
 	}
 
-	public Boolean endCondition(Human human, Zombie zombie) {
-		if ((human.isAlive() || zombie.isAlive()) || (!human.isAlive() && zombie.isAlive())
-				|| (human.isAlive() && !zombie.isAlive())) {
-			return true;
-		} else {
+	public Boolean endCondition(Boolean humanAlive, Boolean zombieAlive) {
+		if (!humanAlive || !zombieAlive) {
 			return false;
+		} else {
+			return true;
 		}
 
 	}
@@ -46,100 +45,64 @@ public class Rule {
 
 		for (int j = 0; j < humans.size(); j++) {
 			for (int k = 0; k < zombies.size(); k++) {
+								
 				if (humans.get(j).getId_room() == zombies.get(k).getId_room()) {
-//					while (endCondition(humans.get(j), zombies.get(k))) {
-					double powerRatio = (double) zombies.get(k).getAggressivity()
-							/ (double) humans.get(j).getCombat_capacity();
+					
+					// Boucle pour déterminer les vainqueurs
+					while (endCondition(humans.get(j).isAlive(), zombies.get(k).isAlive())) {
+						
+						// Verifier qui est mort
+						if (!humans.get(j).isAlive()) {
+							System.out.println(humans.get(j).getName() + " est mort! :(\n");
+							humans.remove(j);
+						}
 
-					if (powerRatio < 0.5) {
-						System.out.println(humans.get(j).getName() + " défonce le zombie " + zombies.get(k).getName()
-								+ " à coup de " + this.getItemByRoom(humans.get(j).getId_room()).getName()
-								+ "! (powerRatio: " + powerRatio + ")");
-						zombies.get(k).setLife(powerRatio * 100
-								* this.getItemByRoom(humans.get(k).getId_room()).getCombat_points() / 100);
+						if (!zombies.get(k).isAlive()) {
+							System.out.println(zombies.get(k).getName() + " est mort! :)\n");
+							zombies.remove(k);
+						}
+						
 
-					}
+						double powerRatio = (double) zombies.get(k).getAggressivity()
+								/ (double) humans.get(j).getCombat_capacity();
 
-					if (powerRatio >= 0.5 && powerRatio <= 1) {
-						System.out.println(
-								humans.get(j).getName() + " rivalise beaucoup le zombie " + zombies.get(k).getName()
-										+ " à coup de " + this.getItemByRoom(humans.get(j).getId_room()).getName()
-										+ "! (powerRatio: " + powerRatio + ")");
-						zombies.get(k).setLife(powerRatio * 100 / 2);
-						humans.get(j).setLife(powerRatio * 100 / 3);
-					}
+						if (powerRatio < 0.5) {
+							System.out
+									.println(humans.get(j).getName() + " défonce le zombie " + zombies.get(k).getName()
+											+ " à coup de " + this.getItemByRoom(humans.get(j).getId_room()).getName()
+											+ "! (powerRatio: " + powerRatio + ")");
+							zombies.get(k).getDamage(powerRatio * 100
+									* this.getItemByRoom(humans.get(j).getId_room()).getCombat_points() / 100);
 
-					if (powerRatio >= 1 && powerRatio <= 1.5) {
-						System.out.println(
-								humans.get(j).getName() + " rivalise un peu le zombie " + zombies.get(k).getName()
-										+ " à coup de " + this.getItemByRoom(humans.get(j).getId_room()).getName()
-										+ "! (powerRatio: " + powerRatio + ")");
-						zombies.get(k).setLife(powerRatio * 100 / 3);
-						humans.get(j).setLife(powerRatio * 100 / 2);
-					}
-					if (powerRatio > 1.5) {
-						System.out.println(
-								humans.get(j).getName() + " se fait défoncer par le zombie " + zombies.get(k).getName()
-										+ " à coup de " + this.getItemByRoom(humans.get(j).getId_room()).getName()
-										+ "! (powerRatio: " + powerRatio + ")");
-						humans.get(j).setLife(powerRatio * 100);
+						}
+
+						if (powerRatio >= 0.5 && powerRatio <= 1) {
+							System.out.println(
+									humans.get(j).getName() + " rivalise beaucoup le zombie " + zombies.get(k).getName()
+											+ " à coup de " + this.getItemByRoom(humans.get(j).getId_room()).getName()
+											+ "! (powerRatio: " + powerRatio + ")");
+							zombies.get(k).getDamage(powerRatio * 100 / 2);
+							humans.get(j).getDamage(powerRatio * 100 / 3);
+						}
+
+						if (powerRatio >= 1 && powerRatio <= 1.5) {
+							System.out.println(
+									humans.get(j).getName() + " rivalise un peu le zombie " + zombies.get(k).getName()
+											+ " à coup de " + this.getItemByRoom(humans.get(j).getId_room()).getName()
+											+ "! (powerRatio: " + powerRatio + ")");
+							zombies.get(k).getDamage(powerRatio * 100 / 3);
+							humans.get(j).getDamage(powerRatio * 100 / 2);
+						}
+						if (powerRatio > 1.5) {
+							System.out.println(humans.get(j).getName() + " se fait défoncer par le zombie "
+									+ zombies.get(k).getName() + " à coup de "
+									+ this.getItemByRoom(humans.get(j).getId_room()).getName() + "! (powerRatio: "
+									+ powerRatio + ")");
+							humans.get(j).getDamage(powerRatio * 100);
+						}
 					}
 				}
 			}
 		}
 	}
-//	 }
 }
-
-// for (int i = 0; i < humans.size(); i++) {
-//
-// for (int j = 0; j < zombies.size(); j++) {
-//
-// while (humans.get(i).getLife() > 0 || zombies.get(j).getLife() > 0) {
-// if (zombies.get(j).getId_room() == humans.get(i).getId_room()) {
-//
-// double powerRatio = (double) zombies.get(j).getAggressivity()
-// / (double) humans.get(i).getCombat_capacity();
-//
-// if (powerRatio < 0.5) {
-// System.out.println(humans.get(i).getName() + " défonce le zombie à coup de "
-// + this.getItemByRoom(humans.get(i).getId_room()).getName() + "! (powerRatio:
-// "
-// + powerRatio + ")");
-// zombies.get(j).getDamage(powerRatio * 100
-// * this.getItemByRoom(humans.get(i).getId_room()).getCombat_points() / 100);
-//
-// }
-//
-// if (powerRatio >= 0.5 && powerRatio <= 1) {
-// System.out.println(humans.get(i).getName() + " rivalise beaucoup le zombie à
-// coup de "
-// + this.getItemByRoom(humans.get(i).getId_room()).getName() + "! (powerRatio:
-// "
-// + powerRatio + ")");
-// zombies.get(j).getDamage(powerRatio * 100 / 2);
-// humans.get(i).getDamage(powerRatio * 100 / 3);
-// }
-//
-// if (powerRatio >= 1 && powerRatio <= 1.5) {
-// System.out.println(humans.get(i).getName() + " rivalise un peu le zombie à
-// coup de "
-// + this.getItemByRoom(humans.get(i).getId_room()).getName() + "! (powerRatio:
-// "
-// + powerRatio + ")");
-// zombies.get(j).getDamage(powerRatio * 100 / 3);
-// humans.get(i).getDamage(powerRatio * 100 / 2);
-// }
-// if (powerRatio > 1.5) {
-// System.out.println(humans.get(i).getName() + " se fait défoncer par le zombie
-// à coup de "
-// + this.getItemByRoom(humans.get(i).getId_room()).getName() + "! (powerRatio:
-// "
-// + powerRatio + ")");
-// humans.get(i).getDamage(powerRatio * 100);
-// }
-// }
-// }
-// }
-// }
-// }
