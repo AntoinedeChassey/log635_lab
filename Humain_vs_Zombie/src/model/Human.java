@@ -5,14 +5,14 @@ public class Human {
 	private Integer id_human;
 	private Integer id_room;
 	private String name;
-	private Integer life;
-	private Integer age;
-	private Integer size;
-	private Integer weight;
-	private Integer combat_capacity;
+	private double life;
+	private double age;
+	private double size;
+	private double weight;
+	private double combat_capacity;
 
-	public Human(Integer id_human, Integer id_room, String name, Integer life, Integer age, Integer size,
-			Integer weight, Integer combat_capacity) {
+	public Human(Integer id_human, Integer id_room, String name, double life, double age, double size, double weight,
+			double combat_capacity) {
 		super();
 		this.id_human = id_human;
 		this.id_room = id_room;
@@ -48,50 +48,49 @@ public class Human {
 		this.name = name;
 	}
 
-	public Integer getLife() {
+	public double getLife() {
 		return life;
 	}
 
-	public void setLife(Integer life) {
+	public void setLife(double life) {
 		this.life = life;
 	}
 
-	public Integer getAge() {
+	public double getAge() {
 		return age;
 	}
 
-	public void setAge(Integer age) {
+	public void setAge(double age) {
 		this.age = age;
 	}
 
-	public Integer getSize() {
+	public double getSize() {
 		return size;
 	}
 
-	public void setSize(Integer size) {
+	public void setSize(double size) {
 		this.size = size;
 	}
 
-	public Integer getWeight() {
+	public double getWeight() {
 		return weight;
 	}
 
-	public void setWeight(Integer weight) {
+	public void setWeight(double weight) {
 		this.weight = weight;
 	}
 
-	public Integer getCombat_capacity() {
+	public double getCombat_capacity() {
 		return combat_capacity;
 	}
 
-	public void setCombat_capacity(Integer combat_capacity) {
+	public void setCombat_capacity(double combat_capacity) {
 		this.combat_capacity = combat_capacity;
 	}
 
-	
 	// custom methods
-	
-	public void getDamage(Integer damage) {
+
+	public void getDamage(double damage) {
 		this.life = life - damage;
 	}
 }

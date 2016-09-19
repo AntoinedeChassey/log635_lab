@@ -1,13 +1,13 @@
 package model;
 
 public class Room {
-	
+
 	private Integer id_room;
 	private String name;
-	private Integer size;
-	private Integer light;
-	
-	public Room(Integer id_room, String name, Integer size, Integer light) {
+	private double size;
+	private double light;
+
+	public Room(Integer id_room, String name, double size, double light) {
 		super();
 		this.id_room = id_room;
 		this.name = name;
@@ -31,21 +31,20 @@ public class Room {
 		this.name = name;
 	}
 
-	public Integer getSize() {
+	public double getSize() {
 		return size;
 	}
 
-	public void setSize(Integer size) {
+	public void setSize(double size) {
 		this.size = size;
 	}
 
-	public Integer getLight() {
+	public double getLight() {
 		return light;
 	}
 
-	public void setLight(Integer light) {
+	public void setLight(double light) {
 		this.light = light;
 	}
-	
-	
+
 }

@@ -5,11 +5,11 @@ public class Zombie {
 	private Integer id_zombie;
 	private Integer id_room;
 	private String name;
-	private Integer life;
-	private Integer size;
-	private Integer aggressivity;
+	private double life;
+	private double size;
+	private double aggressivity;
 
-	public Zombie(Integer id_zombie, Integer id_room, String name, Integer life, Integer size, Integer aggressivity) {
+	public Zombie(Integer id_zombie, Integer id_room, String name, double life, double size, double aggressivity) {
 		super();
 		this.id_zombie = id_zombie;
 		this.id_room = id_room;
@@ -43,33 +43,34 @@ public class Zombie {
 		this.name = name;
 	}
 
-	public Integer getLife() {
+	public double getLife() {
 		return life;
 	}
 
-	public void setLife(Integer life) {
+	public void setLife(double life) {
 		this.life = life;
 	}
 
-	public Integer getSize() {
+	public double getSize() {
 		return size;
 	}
 
-	public void setSize(Integer size) {
+	public void setSize(double size) {
 		this.size = size;
 	}
 
-	public Integer getAggressivity() {
+	public double getAggressivity() {
 		return aggressivity;
 	}
 
-	public void setAggressivity(Integer aggressivity) {
+	public void setAggressivity(double aggressivity) {
 		this.aggressivity = aggressivity;
 	}
 
 	// custom methods
 
-	public void getDamage(Integer damage) {
+	public void getDamage(double damage) {
 		this.life = life - damage;
 	}
+
 }
