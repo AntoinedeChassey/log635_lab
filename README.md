@@ -1,16 +1,17 @@
 # Laboratoire - Systèmes Intelligents et Algorithmes
 
-## src
-### controller
+## Packages
+### src
+#### * controller *
 Lecture du fichier config.json puis construction des objets
-### dao
+#### * dao *
 Interface qui définie les méthodes (règles) des objets
-### daoImpl
+#### * daoImpl *
 Implémentaion des méthodes définies dans dao
-### model
+#### * model *
 Structures des objets
 
-##
+### resources
 Fichier config.json contenant les données à traiter
 
-Louis Congard & Antoine de Chassey.
+>Louis Congard & Antoine de Chassey.
