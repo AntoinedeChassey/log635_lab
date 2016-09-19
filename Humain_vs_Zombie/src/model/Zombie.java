@@ -8,7 +8,7 @@ public class Zombie {
 	private Integer life;
 	private Integer size;
 	private Integer aggressivity;
-	
+
 	public Zombie(Integer id_zombie, Integer id_room, String name, Integer life, Integer size, Integer aggressivity) {
 		super();
 		this.id_zombie = id_zombie;
@@ -66,6 +66,10 @@ public class Zombie {
 	public void setAggressivity(Integer aggressivity) {
 		this.aggressivity = aggressivity;
 	}
-	
-	
+
+	// custom methods
+
+	public void getDamage(Integer damage) {
+		this.life = life - damage;
+	}
 }

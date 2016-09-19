@@ -8,7 +8,4 @@ public interface HumanDao {
 
 	public List<Human> getAllHumans();
 
-	// public Human attack(Integer id_zombie);
-	//
-	// public Human defend(Integer id_zombie);
 }

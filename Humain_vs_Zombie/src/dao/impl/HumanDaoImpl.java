@@ -57,5 +57,4 @@ public class HumanDaoImpl implements HumanDao {
 		}
 		return humans;
 	}
-
 }

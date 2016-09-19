@@ -17,12 +17,28 @@ public class Main {
 		List<Item> items = world.getAllItems();
 		List<Room> rooms = world.getAllRooms();
 		List<Zombie> zombies = world.getAllZombies();
+		
+		System.out.println("Vie des humains au début:");
+		for (int i = 0; i < humans.size(); i++) {
+			System.out.println("\t" + humans.get(i).getLife());
+		}
+		
+		System.out.println("Vie des zombies au début:");
+		for (int i = 0; i < zombies.size(); i++) {
+			System.out.println("\t" + zombies.get(i).getLife());
+		}
 
-		System.out.println(humans.get(0).getName());
-		System.out.println(items.get(0).getName());
-		System.out.println(rooms.get(0).getName());
-		System.out.println(zombies.get(0).getName());
+		new Rule(humans, items, rooms, zombies);
 
-		// voila on a les datas comme on veut, c'est partit mon kiki
+		System.out.println("Vie des humains à la fin:");
+		for (int i = 0; i < humans.size(); i++) {
+			System.out.println("\t" + humans.get(i).getLife());
+		}
+		
+		System.out.println("Vie des zombies à la fin:");
+		for (int i = 0; i < zombies.size(); i++) {
+			System.out.println("\t" + zombies.get(i).getLife());
+		}
+		
 	}
 }
