@@ -33,12 +33,12 @@ public class Main {
 
 		System.out.println("\n\nVie des humains à la fin:");
 		for (int i = 0; i < humans.size(); i++) {
-			System.out.println("\t" + humans.get(i).getName() +" - " + humans.get(i).getLife());
+			System.out.println("\t" + humans.get(i).getName() +": " + humans.get(i).getLife());
 		}
 
 		System.out.println("Vie des zombies à la fin:");
 		for (int i = 0; i < zombies.size(); i++) {
-			System.out.println("\t" + zombies.get(i).getLife());
+			System.out.println("\t" + zombies.get(i).getName() +": " + zombies.get(i).getLife());
 		}
 
 	}

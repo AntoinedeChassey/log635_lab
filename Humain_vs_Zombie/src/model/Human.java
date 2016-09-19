@@ -90,6 +90,10 @@ public class Human {
 
 	// custom methods
 
+	public void getDamage(double damage) {
+		this.setLife(this.getLife() - damage);
+	}
+
 	public Boolean isAlive() {
 		if (this.life > 0) {
 			return true;
