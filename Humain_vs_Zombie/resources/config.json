@@ -92,7 +92,7 @@
 			},
 			{
 			"id_zombie": 2,
-			"id_room": 1,
+			"id_room": 3,
 			"name": "Antoine",
 			"life": 100,
 			"aggressivity": 45,
@@ -108,9 +108,9 @@
 			},
 			{
 			"id_zombie": 4,
+			"id_room": 1,
 			"name": "Louis",
 			"life": 100,
-			"id_room": 1,
 			"aggressivity": 55,
 			"size": 185
 			}		
