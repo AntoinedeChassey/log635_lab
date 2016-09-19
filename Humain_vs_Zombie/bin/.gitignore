@@ -1,3 +1,7 @@
 /controller/
 /dao/
 /model/
+/objects.json
+/entities.json
+/facts.json
+/config.json

@@ -90,7 +90,11 @@ public class Human {
 
 	// custom methods
 
-	public void getDamage(double damage) {
-		this.life = life - damage;
+	public Boolean isAlive() {
+		if (this.life > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
