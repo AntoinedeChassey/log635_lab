@@ -39,6 +39,7 @@ public class Build {
 	public List<Human> getAllHumans() {
 		return humanDao.getAllHumans();
 	}
+	
 
 	// Item methods
 

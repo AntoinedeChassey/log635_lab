@@ -18,11 +18,34 @@ public class Main {
 		List<Room> rooms = world.getAllRooms();
 		List<Zombie> zombies = world.getAllZombies();
 
-		System.out.println(humans.get(0).getName());
-		System.out.println(items.get(0).getName());
-		System.out.println(rooms.get(0).getName());
-		System.out.println(zombies.get(0).getName());
+		// for (int i = 0; i < humans.size(); i++) {
+		// System.out.println(humans.get(i).getLife());
+		// }
 
-		// voila on a les datas comme on veut, c'est partit mon kiki
+		for (int i = 0; i < humans.size(); i++) {
+			if (zombies.get(i).getId_room() == humans.get(0).getId_room()) {
+				if (zombies.get(i).getAggressivity() > humans.get(0).getCombat_capacity()) {
+					System.out.println(humans.get(0).getName() + " en prend plein la gueule!");
+					humans.get(0).getDamage(40);
+				}
+				if (zombies.get(i).getAggressivity() < humans.get(0).getCombat_capacity()) {
+					System.out.println(humans.get(0).getName() + " défonce le zombie!");
+					zombies.get(i).getDamage(60);
+				}
+
+			} else {
+				System.out.println("Pas de zombie avec " + humans.get(0).getName());
+			}
+		}
+
+		System.out.println("Vie des humains:");
+		for (int i = 0; i < humans.size(); i++) {
+			System.out.println("\t" + humans.get(i).getLife());
+		}
+
+		System.out.println("Vie des zombies:");
+		for (int i = 0; i < zombies.size(); i++) {
+			System.out.println("\t" + zombies.get(i).getLife());
+		}
 	}
 }
