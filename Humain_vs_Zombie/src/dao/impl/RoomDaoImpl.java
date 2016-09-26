@@ -53,5 +53,14 @@ public class RoomDaoImpl implements RoomDao {
 		}
 		return rooms;
 	}
-
+	
+	@Override
+	public Room getRoomById(List<Room> rooms, Integer id_room){
+		for (int i = 0; i < rooms.size(); i++) {
+			if (rooms.get(i).getId_room() == id_room) {
+				return rooms.get(i);
+			}
+		}
+		return null;
+	}
 }

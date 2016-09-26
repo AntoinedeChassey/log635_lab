@@ -70,7 +70,9 @@ public class Zombie {
 	// custom methods
 
 	public void getDamage(double damage) {
-		this.setLife(this.getLife() - damage);
+		if (damage > 0) {
+			this.setLife(this.getLife() - damage);
+		}
 	}
 
 	public Boolean isAlive() {

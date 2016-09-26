@@ -20,7 +20,6 @@ public class Rule {
 		this.rooms = rooms;
 		this.zombies = zombies;
 
-		combat();
 	}
 
 	public Boolean endCondition(Boolean humanAlive, Boolean zombieAlive) {
@@ -32,73 +31,76 @@ public class Rule {
 
 	}
 
-	public void combat() {
+	public void fight(Integer j, Integer k) {
 
-		for (int j = 0; j < humans.size(); j++) {
-			for (int k = 0; k < zombies.size(); k++) {
+		// Calcul du ratio de combat en fonction de la taille et l'aggressivité
+		// des personnes
+		double powerRatio = ((double) zombies.get(k).getAggressivity() + (double) zombies.get(k).getSize())
+				/ ((double) humans.get(j).getCombat_capacity() + (double) humans.get(j).getSize());
 
-				if (humans.get(j).getId_room() == zombies.get(k).getId_room()) {
+		// Calcul des points d'environnements en fonction de la taille et
+		// luminosité de la pièce
+		double environmentInfluence = (double) Manager.getInstance().getRoomById(rooms, humans.get(j).getId_room())
+				.getLight() + (double) Manager.getInstance().getRoomById(rooms, humans.get(j).getId_room()).getSize();
 
-					// Boucle pour déterminer les vainqueurs
-					while (endCondition(humans.get(j).isAlive(), zombies.get(k).isAlive())) {
+		// Calcul des points de damages
+		double humanDamage = powerRatio
+				* Manager.getInstance().getItemByRoomId(items, humans.get(j).getId_room()).getCombat_points();
+		double zombieDamage = powerRatio * 100;
 
-						// Verifier qui est mort
-						if (!humans.get(j).isAlive()) {
-							System.out.println(humans.get(j).getName() + " est mort! :(\n");
-							humans.remove(j);
-						}
+		if (powerRatio < 0.5) {
+			zombieDamage = zombieDamage / 4;
+			System.out.println(humans.get(j).getName() + " défonce le zombie " + zombies.get(k).getName()
+					+ " à coup de " + Manager.getInstance().getItemByRoomId(items, humans.get(j).getId_room()).getName()
+					+ "! (powerRatio: " + powerRatio + ", humanDamage: " + humanDamage + ")");
+			zombies.get(k).getDamage(humanDamage);
+			humans.get(j).getDamage(zombieDamage);
+		}
 
-						if (!zombies.get(k).isAlive()) {
-							System.out.println(zombies.get(k).getName() + " est mort! :)\n");
-							zombies.remove(k);
-						}
+		if (powerRatio >= 0.5 && powerRatio <= 1) {
+			humanDamage = humanDamage / 2;
+			zombieDamage = zombieDamage / 3;
+			System.out.println(humans.get(j).getName() + " rivalise beaucoup le zombie " + zombies.get(k).getName()
+					+ " à coup de " + Manager.getInstance().getItemByRoomId(items, humans.get(j).getId_room()).getName()
+					+ "! (powerRatio: " + powerRatio + ", humanDamage: " + humanDamage + ")");
+			zombies.get(k).getDamage(humanDamage);
+			humans.get(j).getDamage(zombieDamage);
+		}
 
-						double powerRatio = (double) zombies.get(k).getAggressivity()
-								/ (double) humans.get(j).getCombat_capacity();
+		if (powerRatio >= 1 && powerRatio <= 1.5) {
+			humanDamage = humanDamage / 3;
+			zombieDamage = zombieDamage / 2;
+			System.out.println(humans.get(j).getName() + " rivalise un peu le zombie " + zombies.get(k).getName()
+					+ " à coup de " + Manager.getInstance().getItemByRoomId(items, humans.get(j).getId_room()).getName()
+					+ "! (powerRatio: " + powerRatio + ", humanDamage: " + humanDamage + ")");
+			zombies.get(k).getDamage(humanDamage);
+			humans.get(j).getDamage(zombieDamage);
+		}
+		if (powerRatio > 1.5) {
+			humanDamage = humanDamage / 4;
+			System.out.println(humans.get(j).getName() + " se fait défoncer par le zombie " + zombies.get(k).getName()
+					+ " à coup de " + Manager.getInstance().getItemByRoomId(items, humans.get(j).getId_room()).getName()
+					+ "! (powerRatio: " + powerRatio + ", humanDamage: " + humanDamage + ")");
+			zombies.get(k).getDamage(humanDamage);
+			humans.get(j).getDamage(zombieDamage);
+		}
+	}
 
-						if (powerRatio < 0.5) {
-							System.out
-									.println(humans.get(j).getName() + " défonce le zombie " + zombies.get(k).getName()
-											+ " à coup de " + Manager.getInstance()
-													.getItemByRoom(items, humans.get(j).getId_room()).getName()
-											+ "! (powerRatio: " + powerRatio + ")");
-							zombies.get(k)
-									.getDamage(powerRatio
-											* 100 * Manager.getInstance()
-													.getItemByRoom(items, humans.get(j).getId_room()).getCombat_points()
-											/ 100);
+	public void setItemCombatPoints(Integer j, Integer k) {
+		Item item = Manager.getInstance().getItemByRoomId(items, humans.get(j).getId_room());
+		item.setCombat_points(item.getCombat_points() - (100 - item.getResistance()) / 2);
+	}
 
-						}
+	public void checkDeath(Integer j, Integer k) {
+		// Verifier qui est mort
+		if (!humans.get(j).isAlive()) {
+			System.out.println("L'humain " + humans.get(j).getName() + " est mort! :(\n");
+			humans.remove(j);
+		}
 
-						if (powerRatio >= 0.5 && powerRatio <= 1) {
-							System.out.println(
-									humans.get(j).getName() + " rivalise beaucoup le zombie " + zombies.get(k).getName()
-											+ " à coup de " + Manager.getInstance()
-													.getItemByRoom(items, humans.get(j).getId_room()).getName()
-											+ "! (powerRatio: " + powerRatio + ")");
-							zombies.get(k).getDamage(powerRatio * 100 / 2);
-							humans.get(j).getDamage(powerRatio * 100 / 3);
-						}
-
-						if (powerRatio >= 1 && powerRatio <= 1.5) {
-							System.out.println(
-									humans.get(j).getName() + " rivalise un peu le zombie " + zombies.get(k).getName()
-											+ " à coup de " + Manager.getInstance()
-													.getItemByRoom(items, humans.get(j).getId_room()).getName()
-											+ "! (powerRatio: " + powerRatio + ")");
-							zombies.get(k).getDamage(powerRatio * 100 / 3);
-							humans.get(j).getDamage(powerRatio * 100 / 2);
-						}
-						if (powerRatio > 1.5) {
-							System.out.println(humans.get(j).getName() + " se fait défoncer par le zombie "
-									+ zombies.get(k).getName() + " à coup de "
-									+ Manager.getInstance().getItemByRoom(items, humans.get(j).getId_room()).getName()
-									+ "! (powerRatio: " + powerRatio + ")");
-							humans.get(j).getDamage(powerRatio * 100);
-						}
-					}
-				}
-			}
+		if (!zombies.get(k).isAlive()) {
+			System.out.println("Le zombie " + zombies.get(k).getName() + " est mort! :)\n");
+			zombies.remove(k);
 		}
 	}
 }

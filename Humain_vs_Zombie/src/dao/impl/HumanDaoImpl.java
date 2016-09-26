@@ -44,8 +44,9 @@ public class HumanDaoImpl implements HumanDao {
 				Integer size = (int) (long) obj_human.get("size");
 				Integer weight = (int) (long) obj_human.get("weight");
 				Integer combat_capacity = (int) (long) obj_human.get("combat_capacity");
+				String job = (String) obj_human.get("job");
 
-				Human human = new Human(id_human, id_room, name, life, age, size, weight, combat_capacity);
+				Human human = new Human(id_human, id_room, name, life, age, size, weight, combat_capacity, job);
 				humans.add(human);
 			}
 		} catch (FileNotFoundException e) {

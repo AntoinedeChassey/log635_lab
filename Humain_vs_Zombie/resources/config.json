@@ -9,7 +9,8 @@
 			"age": 45,
 			"size": 185,
 			"weight": 80,
-			"combat_capacity": 75
+			"combat_capacity": 75,
+            "job": "Policeman"
 			},
 			{
 			"id_human": 2,
@@ -17,9 +18,10 @@
 			"name": "Daryl",
 			"life": 100,
 			"age": 38,
-			"size": 180,
+			 "size": 180,
 			"weight": 75,
-			"combat_capacity": 90
+			"combat_capacity": 90,
+            "job": "Banker"
 			},
 			{
 			"id_human": 3,
@@ -29,7 +31,8 @@
 			"age": 35,
 			"size": 175,
 			"weight": 65,
-			"combat_capacity": 60
+			"combat_capacity": 60,
+            "job": "Cleaning lady"
 			}
 		],
 		
@@ -40,7 +43,7 @@
 			"id_room": 1,
 			"name": "tooth brush",
 			"combat_points": 20,
-			"resistance": 20
+			"resistance": 10
 			},
 			{
 			"id_item": 2,
