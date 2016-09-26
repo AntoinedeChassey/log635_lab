@@ -57,4 +57,14 @@ public class HumanDaoImpl implements HumanDao {
 		}
 		return humans;
 	}
+
+	@Override
+	public Human getHumanByName(List<Human> humans, String name) {
+		for (int i = 0; i < humans.size(); i++) {
+			if (humans.get(i).getName() == name) {
+				return humans.get(i);
+			}
+		}
+		return null;
+	}
 }
