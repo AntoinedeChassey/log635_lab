@@ -57,7 +57,7 @@ public class ItemDaoImpl implements ItemDao {
 	
 	
 	@Override
-	public Item getItemByRoom(List<Item> items, Integer id_room) {
+	public Item getItemByRoomId(List<Item> items, Integer id_room) {
 		for (int i = 0; i < items.size(); i++) {
 			if (items.get(i).getId_room() == id_room) {
 				return items.get(i);

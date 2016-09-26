@@ -10,9 +10,10 @@ public class Human {
 	private double size;
 	private double weight;
 	private double combat_capacity;
+	private String job;
 
 	public Human(Integer id_human, Integer id_room, String name, double life, double age, double size, double weight,
-			double combat_capacity) {
+			double combat_capacity, String job) {
 		super();
 		this.id_human = id_human;
 		this.id_room = id_room;
@@ -22,6 +23,7 @@ public class Human {
 		this.size = size;
 		this.weight = weight;
 		this.combat_capacity = combat_capacity;
+		this.job = job;
 	}
 
 	public Integer getId_human() {
@@ -88,10 +90,20 @@ public class Human {
 		this.combat_capacity = combat_capacity;
 	}
 
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+
 	// custom methods
 
 	public void getDamage(double damage) {
-		this.setLife(this.getLife() - damage);
+		if (damage > 0) {
+			this.setLife(this.getLife() - damage);
+		}
 	}
 
 	public Boolean isAlive() {

@@ -51,14 +51,18 @@ public class Manager {
 		return itemDao.getAllItems();
 	}
 	
-	public Item getItemByRoom(List<Item> items, Integer id_room) {
-		return itemDao.getItemByRoom(items, id_room);
+	public Item getItemByRoomId(List<Item> items, Integer id_room) {
+		return itemDao.getItemByRoomId(items, id_room);
 	}
 
 	// Room methods
 
 	public List<Room> getAllRooms() {
 		return roomDao.getAllRooms();
+	}
+	
+	public Room getRoomById(List<Room> rooms, Integer id_room) {
+		return roomDao.getRoomById(rooms, id_room);
 	}
 
 	// Zombie methods

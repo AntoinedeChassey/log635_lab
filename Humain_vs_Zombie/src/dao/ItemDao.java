@@ -8,6 +8,6 @@ public interface ItemDao {
 
 	public List<Item> getAllItems();
 
-	Item getItemByRoom(List<Item> items, Integer id_room);
+	public Item getItemByRoomId(List<Item> items, Integer id_room);
 	
 }
