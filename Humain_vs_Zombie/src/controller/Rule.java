@@ -46,13 +46,14 @@ public class Rule {
 		// Calcul des points de damages
 		double humanDamage = powerRatio
 				* Manager.getInstance().getItemByRoomId(items, humans.get(j).getId_room()).getCombat_points();
-		double zombieDamage = powerRatio * 100;
+		double zombieDamage = powerRatio * 10;
 
 		if (powerRatio < 0.5) {
 			zombieDamage = zombieDamage / 4;
 			System.out.println(humans.get(j).getName() + " défonce le zombie " + zombies.get(k).getName()
 					+ " à coup de " + Manager.getInstance().getItemByRoomId(items, humans.get(j).getId_room()).getName()
-					+ "! (powerRatio: " + powerRatio + ", humanDamage: " + humanDamage + ")");
+					+ "! (powerRatio: " + powerRatio + ", humanDamage: " + humanDamage + ", zombieDamage: "
+					+ zombieDamage + ")");
 			zombies.get(k).getDamage(humanDamage);
 			humans.get(j).getDamage(zombieDamage);
 		}
@@ -62,7 +63,8 @@ public class Rule {
 			zombieDamage = zombieDamage / 3;
 			System.out.println(humans.get(j).getName() + " rivalise beaucoup le zombie " + zombies.get(k).getName()
 					+ " à coup de " + Manager.getInstance().getItemByRoomId(items, humans.get(j).getId_room()).getName()
-					+ "! (powerRatio: " + powerRatio + ", humanDamage: " + humanDamage + ")");
+					+ "! (powerRatio: " + powerRatio + ", humanDamage: " + humanDamage + ", zombieDamage: "
+					+ zombieDamage + ")");
 			zombies.get(k).getDamage(humanDamage);
 			humans.get(j).getDamage(zombieDamage);
 		}
@@ -72,7 +74,8 @@ public class Rule {
 			zombieDamage = zombieDamage / 2;
 			System.out.println(humans.get(j).getName() + " rivalise un peu le zombie " + zombies.get(k).getName()
 					+ " à coup de " + Manager.getInstance().getItemByRoomId(items, humans.get(j).getId_room()).getName()
-					+ "! (powerRatio: " + powerRatio + ", humanDamage: " + humanDamage + ")");
+					+ "! (powerRatio: " + powerRatio + ", humanDamage: " + humanDamage + ", zombieDamage: "
+					+ zombieDamage + ")");
 			zombies.get(k).getDamage(humanDamage);
 			humans.get(j).getDamage(zombieDamage);
 		}
@@ -80,7 +83,8 @@ public class Rule {
 			humanDamage = humanDamage / 4;
 			System.out.println(humans.get(j).getName() + " se fait défoncer par le zombie " + zombies.get(k).getName()
 					+ " à coup de " + Manager.getInstance().getItemByRoomId(items, humans.get(j).getId_room()).getName()
-					+ "! (powerRatio: " + powerRatio + ", humanDamage: " + humanDamage + ")");
+					+ "! (powerRatio: " + powerRatio + ", humanDamage: " + humanDamage + ", zombieDamage: "
+					+ zombieDamage + ")");
 			zombies.get(k).getDamage(humanDamage);
 			humans.get(j).getDamage(zombieDamage);
 		}
@@ -88,7 +92,7 @@ public class Rule {
 
 	public void setItemCombatPoints(Integer j, Integer k) {
 		Item item = Manager.getInstance().getItemByRoomId(items, humans.get(j).getId_room());
-		item.setCombat_points(item.getCombat_points() - (100 - item.getResistance()) / 2);
+		item.setCombat_points(item.getCombat_points() - (100 - item.getResistance()) / 10);
 	}
 
 	public void checkDeath(Integer j, Integer k) {

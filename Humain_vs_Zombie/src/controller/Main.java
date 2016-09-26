@@ -9,6 +9,8 @@ import model.Zombie;
 
 public class Main {
 
+	private static Integer compteurIterations = 0;
+
 	public static void main(String[] args) {
 
 		Manager world = Manager.getInstance();
@@ -40,35 +42,31 @@ public class Main {
 
 		System.out.println("Lancement du scénario...\n\n");
 
-		
 		// Création des règles
 		Rule rules = new Rule(humans, items, rooms, zombies);
-		
+
 		// Iteratation des règles
 		for (int j = 0; j < humans.size(); j++) {
 			for (int k = 0; k < zombies.size(); k++) {
 				if (humans.get(j).getId_room() == zombies.get(k).getId_room()) {
-					
+
 					// Boucle pour déterminer les vainqueurs
-					while (rules.endCondition(humans.get(j).isAlive(), zombies.get(k).isAlive()) ) {
-					
+					while (rules.endCondition(humans.get(j).isAlive(), zombies.get(k).isAlive())) {
+
+						compteurIterations++;
+
 						// Combat
 						rules.fight(j, k);
-						
+
 						// Set new weapon combat points
 						rules.setItemCombatPoints(j, k);
-						
+
 						// Check who is alive
 						rules.checkDeath(j, k);
 					}
 				}
 			}
 		}
-		
-		
-		
-		
-		
 
 		System.out.println("\n\nVie des humains à la fin:");
 		for (int i = 0; i < humans.size(); i++) {
@@ -80,5 +78,6 @@ public class Main {
 			System.out.println("\t" + zombies.get(i).getName() + ": " + zombies.get(i).getLife());
 		}
 
+		System.out.println("Nombre d'itérations: " + compteurIterations);
 	}
 }
