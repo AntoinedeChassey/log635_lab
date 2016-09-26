@@ -32,25 +32,16 @@ public class Rule {
 
 	}
 
-	public Item getItemByRoom(Integer id_room) {
-		for (int i = 0; i < items.size(); i++) {
-			if (items.get(i).getId_room() == id_room) {
-				return items.get(i);
-			}
-		}
-		return null;
-	}
-
 	public void combat() {
 
 		for (int j = 0; j < humans.size(); j++) {
 			for (int k = 0; k < zombies.size(); k++) {
-								
+
 				if (humans.get(j).getId_room() == zombies.get(k).getId_room()) {
-					
+
 					// Boucle pour déterminer les vainqueurs
 					while (endCondition(humans.get(j).isAlive(), zombies.get(k).isAlive())) {
-						
+
 						// Verifier qui est mort
 						if (!humans.get(j).isAlive()) {
 							System.out.println(humans.get(j).getName() + " est mort! :(\n");
@@ -61,7 +52,6 @@ public class Rule {
 							System.out.println(zombies.get(k).getName() + " est mort! :)\n");
 							zombies.remove(k);
 						}
-						
 
 						double powerRatio = (double) zombies.get(k).getAggressivity()
 								/ (double) humans.get(j).getCombat_capacity();
@@ -69,17 +59,22 @@ public class Rule {
 						if (powerRatio < 0.5) {
 							System.out
 									.println(humans.get(j).getName() + " défonce le zombie " + zombies.get(k).getName()
-											+ " à coup de " + this.getItemByRoom(humans.get(j).getId_room()).getName()
+											+ " à coup de " + Manager.getInstance()
+													.getItemByRoom(items, humans.get(j).getId_room()).getName()
 											+ "! (powerRatio: " + powerRatio + ")");
-							zombies.get(k).getDamage(powerRatio * 100
-									* this.getItemByRoom(humans.get(j).getId_room()).getCombat_points() / 100);
+							zombies.get(k)
+									.getDamage(powerRatio
+											* 100 * Manager.getInstance()
+													.getItemByRoom(items, humans.get(j).getId_room()).getCombat_points()
+											/ 100);
 
 						}
 
 						if (powerRatio >= 0.5 && powerRatio <= 1) {
 							System.out.println(
 									humans.get(j).getName() + " rivalise beaucoup le zombie " + zombies.get(k).getName()
-											+ " à coup de " + this.getItemByRoom(humans.get(j).getId_room()).getName()
+											+ " à coup de " + Manager.getInstance()
+													.getItemByRoom(items, humans.get(j).getId_room()).getName()
 											+ "! (powerRatio: " + powerRatio + ")");
 							zombies.get(k).getDamage(powerRatio * 100 / 2);
 							humans.get(j).getDamage(powerRatio * 100 / 3);
@@ -88,7 +83,8 @@ public class Rule {
 						if (powerRatio >= 1 && powerRatio <= 1.5) {
 							System.out.println(
 									humans.get(j).getName() + " rivalise un peu le zombie " + zombies.get(k).getName()
-											+ " à coup de " + this.getItemByRoom(humans.get(j).getId_room()).getName()
+											+ " à coup de " + Manager.getInstance()
+													.getItemByRoom(items, humans.get(j).getId_room()).getName()
 											+ "! (powerRatio: " + powerRatio + ")");
 							zombies.get(k).getDamage(powerRatio * 100 / 3);
 							humans.get(j).getDamage(powerRatio * 100 / 2);
@@ -96,8 +92,8 @@ public class Rule {
 						if (powerRatio > 1.5) {
 							System.out.println(humans.get(j).getName() + " se fait défoncer par le zombie "
 									+ zombies.get(k).getName() + " à coup de "
-									+ this.getItemByRoom(humans.get(j).getId_room()).getName() + "! (powerRatio: "
-									+ powerRatio + ")");
+									+ Manager.getInstance().getItemByRoom(items, humans.get(j).getId_room()).getName()
+									+ "! (powerRatio: " + powerRatio + ")");
 							humans.get(j).getDamage(powerRatio * 100);
 						}
 					}

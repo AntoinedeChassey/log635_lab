@@ -15,13 +15,13 @@ import model.Item;
 import model.Room;
 import model.Zombie;
 
-public class Build {
+public class Manager {
 
-	private static Build instance;
+	private static Manager instance;
 
-	public static Build getInstance() {
+	public static Manager getInstance() {
 		if (instance == null) {
-			instance = new Build();
+			instance = new Manager();
 		}
 		return instance;
 	}
@@ -31,7 +31,7 @@ public class Build {
 	private RoomDao roomDao = new RoomDaoImpl();
 	private ZombieDao zombieDao = new ZombieDaoImpl();
 
-	private Build() {
+	private Manager() {
 	}
 
 	// Human methods
@@ -40,11 +40,19 @@ public class Build {
 		return humanDao.getAllHumans();
 	}
 	
+	public Human getHumanByName(List<Human> humans, String name){
+		return humanDao.getHumanByName(humans, name);
+	}
+	
 
 	// Item methods
 
 	public List<Item> getAllItems() {
 		return itemDao.getAllItems();
+	}
+	
+	public Item getItemByRoom(List<Item> items, Integer id_room) {
+		return itemDao.getItemByRoom(items, id_room);
 	}
 
 	// Room methods

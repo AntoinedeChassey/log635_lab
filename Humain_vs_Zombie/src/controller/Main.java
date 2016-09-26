@@ -11,7 +11,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		Build world = Build.getInstance();
+		Manager world = Manager.getInstance();
 
 		List<Human> humans = world.getAllHumans();
 		List<Item> items = world.getAllItems();
