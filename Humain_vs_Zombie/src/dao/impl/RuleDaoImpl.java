@@ -1,5 +1,7 @@
 package dao.impl;
 
+import java.util.Random;
+
 import dao.RuleDao;
 import model.Human;
 import model.Item;
@@ -18,11 +20,11 @@ public class RuleDaoImpl implements RuleDao {
 		// Calcul des points d'environnements (fonction de la taille et
 		// luminosité de la pièce
 		double environmentInfluence = (double) room.getLight() + (double) room.getSize();
-//		System.out.println("Environnement: " + environmentInfluence);
+		// System.out.println("Environnement: " + environmentInfluence);
 
 		// Calcul des points de damages (fonction de l'aggressivité, de la
 		// taille, de la capacité de combat et des points de combats des objets)
-		double humanDamage = powerRatio * item.getCombat_points();
+		double humanDamage = powerRatio * item.getDamage();
 		double zombieDamage = powerRatio * 10;
 
 		if (powerRatio < 0.5) {
@@ -99,11 +101,32 @@ public class RuleDaoImpl implements RuleDao {
 
 	@Override
 	public void setItemCombatPoints(Human human, Item item) {
-		if (item.getCombat_points() - (100 - item.getResistance()) / 10 >= 0) {
-			item.setCombat_points(item.getCombat_points() - (100 - item.getResistance()) / 10);
+		if (item.getDamage() - (100 - item.getResistance()) / 10 >= 0) {
+			item.setDamage(item.getDamage() - (100 - item.getResistance()) / 10);
 		} else {
-			item.setCombat_points(0);
+			item.setDamage(0);
 		}
 	}
 
+	@Override
+	public void checkOrigin(Human human) {
+		if (human.getJob() == "Fireman") {
+			human.giveBonusLife(30);
+		}
+		if (human.getJob() == "Policeman") {
+			human.giveBonusLife(50);
+		}
+		if (human.getJob() == "Military") {
+			human.giveBonusLife(70);
+		}
+	}
+
+	@Override
+	public void moveZombie(Zombie zombie, Integer rooms) {
+		Random r = new Random();
+		int min = 1;
+		int max = rooms;
+		int result = r.nextInt(max-min) + min;
+		zombie.setId_room(result);
+	}
 }

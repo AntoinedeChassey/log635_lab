@@ -33,6 +33,17 @@
 			"weight": 65,
 			"combat_capacity": 60,
             "job": "Cleaning lady"
+			},
+			{
+			"id_human": 4,
+			"id_room": 4,
+			"name": "Johnny",
+			"life": 100,
+			"age": 26,
+			"size": 181,
+			"weight": 79,
+			"combat_capacity": 70,
+            "job": "Fireman"
 			}
 		],
 		
@@ -42,22 +53,29 @@
 			"id_item": 1,
 			"id_room": 1,
 			"name": "tooth brush",
-			"combat_points": 20,
-			"resistance": 10
+			"damage": 20,
+			"resistance": 50
 			},
 			{
 			"id_item": 2,
 			"id_room": 2,
 			"name": "baseball bat",
-			"combat_points": 55,
+			"damage": 55,
 			"resistance": 35
 			},
 			{
 			"id_item": 3,
 			"id_room": 3,
 			"name": "shotgun",
-			"combat_points": 95,
+			"damage": 95,
 			"resistance": 80
+			},
+			{
+			"id_item": 4,
+			"id_room": 4,
+			"name": "scissors",
+			"damage": 42,
+			"resistance": 85
 			}
 		],
 
@@ -65,21 +83,27 @@
 		[
 			{
 			"id_room": 1,
-			"name": "Salle de bain",
+			"name": "Bathroom",
 			"size": 15,
 			"light": 60
 			},
 			{
 			"id_room": 2,
-			"name": "Salon",
-			"size": 5,
+			"name": "Dinning hall",
+			"size": 50,
 			"light": 20
 			},
 			{
 			"id_room": 3,
-			"name": "Chambre",
-			"size": 50,
+			"name": "Bedroom",
+			"size": 20,
 			"light": 10
+			},
+			{
+			"id_room": 4,
+			"name": "Kitchen",
+			"size": 30,
+			"light": 80
 			}
 		],
 		
@@ -116,6 +140,14 @@
 			"life": 100,
 			"aggressivity": 55,
 			"size": 185
+			},
+			{
+			"id_zombie": 5,
+			"id_room": 4,
+			"name": "Harry",
+			"life": 100,
+			"aggressivity": 75,
+			"size": 181
 			}		
 		]
 }

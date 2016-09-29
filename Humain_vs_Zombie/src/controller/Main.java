@@ -47,20 +47,39 @@ public class Main {
 
 		// Iteratation des règles
 		for (int j = 0; j < humans.size(); j++) {
+
+			// Check origins to set bonus or malus to human
+			rules.checkOrigin(humans.get(j));
+
 			for (int k = 0; k < zombies.size(); k++) {
-				if (humans.get(j).getId_room() == zombies.get(k).getId_room()) {
-
+				
+				// Variables
+				Human human = humans.get(j);
+				Zombie zombie = zombies.get(k);
+				
+				if (human.getId_room() == zombie.getId_room()) {
+					
+					/*
+					 * 
+					 * 
+					 * A DEFINIR
+					 * 
+					 * 
+					 * 
+					 */
+					// Bouger le zombie dans une autre pièce si l'humain est mort
+					while(rules.checkAliveHuman(human) == false){
+						rules.moveZombie(zombie, rooms.size());
+					};
+					
 					// Boucle pour déterminer les vainqueurs
-					while (rules.endCondition(humans.get(j), zombies.get(k))) {
+					while (rules.endCondition(human, zombie)) {
 
-						
 						// Variables
-						Human human = humans.get(j);
-						Zombie zombie = zombies.get(k);
 						Room room = FactsManager.getInstance().getRoomById(rooms, human.getId_room());
 						Item item = FactsManager.getInstance().getItemByRoomId(items, human.getId_room());
-						
-						// Combat						
+
+						// Combat
 						rules.fight(human, zombie, room, item);
 
 						// Set new weapon combat points
@@ -71,7 +90,7 @@ public class Main {
 							System.out.println("L'humain " + human.getName() + " est mort! :(\n");
 						if (!rules.checkAliveZombie(zombies.get(k)))
 							System.out.println("Le zombie " + zombie.getName() + " est mort! :)\n");
-						
+
 						compteurIterations++;
 					}
 				}

@@ -45,4 +45,12 @@ public class RulesManager {
 		ruleDao.setItemCombatPoints(human, roomItem);
 	}
 
+	public void checkOrigin(Human human) {
+		ruleDao.checkOrigin(human);
+	}
+
+	public void moveZombie(Zombie zombie, Integer rooms) {
+		ruleDao.moveZombie(zombie, rooms);
+	}
+
 }

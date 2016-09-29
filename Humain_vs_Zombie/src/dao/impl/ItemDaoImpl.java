@@ -39,10 +39,10 @@ public class ItemDaoImpl implements ItemDao {
 				Integer id_item = (int) (long) obj_item.get("id_item");
 				Integer id_room = (int) (long) obj_item.get("id_room");
 				String name = (String) obj_item.get("name");
-				Integer combat_points = (int) (long) obj_item.get("combat_points");
+				Integer damage = (int) (long) obj_item.get("damage");
 				Integer resistance = (int) (long) obj_item.get("resistance");
 
-				Item item = new Item(id_item, id_room, name, combat_points, resistance);
+				Item item = new Item(id_item, id_room, name, damage, resistance);
 				items.add(item);
 			}
 		} catch (FileNotFoundException e) {

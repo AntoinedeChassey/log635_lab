@@ -17,4 +17,8 @@ public interface RuleDao {
 
 	public void setItemCombatPoints(Human human, Item item);
 
+	public void checkOrigin(Human human);
+	
+	public void moveZombie(Zombie zombie, Integer rooms);
+
 }
