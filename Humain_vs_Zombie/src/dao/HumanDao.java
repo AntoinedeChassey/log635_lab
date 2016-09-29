@@ -9,4 +9,5 @@ public interface HumanDao {
 	public List<Human> getAllHumans();
 
 	public Human getHumanByName(List<Human> humans, String name);
+	
 }

@@ -113,4 +113,8 @@ public class Human {
 			return false;
 		}
 	}
+
+	public void giveBonusLife(int life) {
+		this.setLife(this.getLife() + life);
+	}
 }

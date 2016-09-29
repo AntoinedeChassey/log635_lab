@@ -15,13 +15,13 @@ import model.Item;
 import model.Room;
 import model.Zombie;
 
-public class Manager {
+public class FactsManager {
 
-	private static Manager instance;
+	private static FactsManager instance;
 
-	public static Manager getInstance() {
+	public static FactsManager getInstance() {
 		if (instance == null) {
-			instance = new Manager();
+			instance = new FactsManager();
 		}
 		return instance;
 	}
@@ -31,7 +31,7 @@ public class Manager {
 	private RoomDao roomDao = new RoomDaoImpl();
 	private ZombieDao zombieDao = new ZombieDaoImpl();
 
-	private Manager() {
+	private FactsManager() {
 	}
 
 	// Human methods

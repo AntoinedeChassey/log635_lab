@@ -5,15 +5,15 @@ public class Item {
 	private Integer id_item;
 	private Integer id_room;
 	private String name;
-	private double combat_points;
+	private double damage;
 	private double resistance;
 
-	public Item(Integer id_item, Integer id_room, String name, double combat_points, double resistance) {
+	public Item(Integer id_item, Integer id_room, String name, double damage, double resistance) {
 		super();
 		this.id_item = id_item;
 		this.id_room = id_room;
 		this.name = name;
-		this.combat_points = combat_points;
+		this.damage = damage;
 		this.resistance = resistance;
 	}
 
@@ -41,12 +41,12 @@ public class Item {
 		this.name = name;
 	}
 
-	public double getCombat_points() {
-		return combat_points;
+	public double getDamage() {
+		return damage;
 	}
 
-	public void setCombat_points(double combat_points) {
-		this.combat_points = combat_points;
+	public void setDamage(double damage) {
+		this.damage = damage;
 	}
 
 	public double getResistance() {
