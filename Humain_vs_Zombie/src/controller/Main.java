@@ -13,7 +13,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		Manager world = Manager.getInstance();
+		FactsManager world = FactsManager.getInstance();
 
 		List<Human> humans = world.getAllHumans();
 		List<Item> items = world.getAllItems();
@@ -34,7 +34,7 @@ public class Main {
 		for (int j = 0; j < humans.size(); j++) {
 			for (int k = 0; k < zombies.size(); k++) {
 				if (humans.get(j).getId_room() == zombies.get(k).getId_room()) {
-					System.out.println(humans.get(j).getName() + " est dans la pi�ce " + humans.get(j).getId_room()
+					System.out.println(humans.get(j).getName() + " est dans la pièce " + humans.get(j).getId_room()
 							+ " avec le Z: " + zombies.get(k).getName());
 				}
 			}
@@ -42,8 +42,8 @@ public class Main {
 
 		System.out.println("Lancement du scénario...\n\n");
 
-		// Création des règles
-		Rule rules = new Rule(humans, items, rooms, zombies);
+		// Création du manager des règles
+		RulesManager rules = RulesManager.getInstance();
 
 		// Iteratation des règles
 		for (int j = 0; j < humans.size(); j++) {
@@ -51,18 +51,28 @@ public class Main {
 				if (humans.get(j).getId_room() == zombies.get(k).getId_room()) {
 
 					// Boucle pour déterminer les vainqueurs
-					while (rules.endCondition(humans.get(j).isAlive(), zombies.get(k).isAlive())) {
+					while (rules.endCondition(humans.get(j), zombies.get(k))) {
 
-						compteurIterations++;
-
-						// Combat
-						rules.fight(j, k);
+						
+						// Variables
+						Human human = humans.get(j);
+						Zombie zombie = zombies.get(k);
+						Room room = FactsManager.getInstance().getRoomById(rooms, human.getId_room());
+						Item item = FactsManager.getInstance().getItemByRoomId(items, human.getId_room());
+						
+						// Combat						
+						rules.fight(human, zombie, room, item);
 
 						// Set new weapon combat points
-						rules.setItemCombatPoints(j, k);
+						rules.setItemCombatPoints(human, item);
 
 						// Check who is alive
-						rules.checkDeath(j, k);
+						if (!rules.checkAliveHuman(human))
+							System.out.println("L'humain " + human.getName() + " est mort! :(\n");
+						if (!rules.checkAliveZombie(zombies.get(k)))
+							System.out.println("Le zombie " + zombie.getName() + " est mort! :)\n");
+						
+						compteurIterations++;
 					}
 				}
 			}
