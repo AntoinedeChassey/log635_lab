@@ -1,5 +1,6 @@
 package dao.impl;
 
+import java.util.List;
 import java.util.Random;
 
 import dao.RuleDao;
@@ -73,12 +74,15 @@ public class RuleDaoImpl implements RuleDao {
 	}
 
 	@Override
-	public Boolean endCondition(Human human, Zombie zombie) {
-		if (!human.isAlive() || !zombie.isAlive()) {
-			return false;
-		} else {
-			return true;
+	public Boolean endCondition(Human human, List<Zombie> zombies) {
+		for (int i = 0; i < zombies.size(); i++) {
+			if (human.isAlive() || zombies.get(i).isAlive()) {
+				return true;
+			} else {
+				return false;
+			}
 		}
+		return false;
 	}
 
 	@Override
@@ -101,10 +105,10 @@ public class RuleDaoImpl implements RuleDao {
 
 	@Override
 	public void setItemCombatPoints(Human human, Item item) {
-		if (item.getDamage() - (100 - item.getResistance()) / 10 >= 0) {
+		if (item.getDamage() - (100 - item.getResistance()) / 10 > 1) {
 			item.setDamage(item.getDamage() - (100 - item.getResistance()) / 10);
 		} else {
-			item.setDamage(0);
+			item.setDamage(1);
 		}
 	}
 
@@ -126,7 +130,7 @@ public class RuleDaoImpl implements RuleDao {
 		Random r = new Random();
 		int min = 1;
 		int max = rooms;
-		int result = r.nextInt(max-min) + min;
+		int result = r.nextInt(max - min) + min;
 		zombie.setId_room(result);
 	}
 }

@@ -39,18 +39,17 @@ public class FactsManager {
 	public List<Human> getAllHumans() {
 		return humanDao.getAllHumans();
 	}
-	
-	public Human getHumanByName(List<Human> humans, String name){
+
+	public Human getHumanByName(List<Human> humans, String name) {
 		return humanDao.getHumanByName(humans, name);
 	}
-	
 
 	// Item methods
 
 	public List<Item> getAllItems() {
 		return itemDao.getAllItems();
 	}
-	
+
 	public Item getItemByRoomId(List<Item> items, Integer id_room) {
 		return itemDao.getItemByRoomId(items, id_room);
 	}
@@ -60,7 +59,7 @@ public class FactsManager {
 	public List<Room> getAllRooms() {
 		return roomDao.getAllRooms();
 	}
-	
+
 	public Room getRoomById(List<Room> rooms, Integer id_room) {
 		return roomDao.getRoomById(rooms, id_room);
 	}
@@ -69,5 +68,9 @@ public class FactsManager {
 
 	public List<Zombie> getAllZombies() {
 		return zombieDao.getAllZombies();
+	}
+
+	public List<Zombie> getZombiesInHumanRoom(List<Zombie> zombies, Human human) {
+		return zombieDao.getZombiesInHumanRoom(zombies, human);
 	}
 }
