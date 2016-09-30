@@ -51,7 +51,11 @@ public class RulesManager {
 		ruleDao.checkOrigin(human);
 	}
 
-	public void moveZombie(Zombie zombie, Integer rooms) {
-		ruleDao.moveZombie(zombie, rooms);
+	public void moveZombieToAliveHumanRoom(List<Human> humans, Zombie zombie) {
+		ruleDao.moveZombieToAliveHumanRoom(humans, zombie);
+	}
+	
+	public void removeTheDead(List<Human> humans, Human human, List<Zombie> zombies, Zombie zombie) {
+		ruleDao.removeTheDead(humans, human, zombies, zombie);
 	}
 }

@@ -73,4 +73,8 @@ public class FactsManager {
 	public List<Zombie> getZombiesInHumanRoom(List<Zombie> zombies, Human human) {
 		return zombieDao.getZombiesInHumanRoom(zombies, human);
 	}
+
+	public boolean zombieHasNoHumansToEat(List<Zombie> zombies, List<Human> humans) {
+		return zombieDao.zombieHasNoHumansToEat(zombies, humans);
+	}
 }

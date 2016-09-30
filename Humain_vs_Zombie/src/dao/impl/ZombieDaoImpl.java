@@ -69,4 +69,19 @@ public class ZombieDaoImpl implements ZombieDao {
 		return zombiesInHumanRoom;
 	}
 
+	@Override
+	public boolean zombieHasNoHumansToEat(List<Zombie> zombies, List<Human> humans) {
+		Boolean zombieAlone = true;
+		for (int i = 0; i < zombies.size(); i++) {
+			for (int j = 0; j < humans.size(); j++) {
+				if (zombies.get(i).getId_room() != humans.get(j).getId_room()) {
+					zombieAlone = true;
+				} else {
+					zombieAlone = false;
+				}
+			}
+		}
+		return zombieAlone;
+	}
+
 }
