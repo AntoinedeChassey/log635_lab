@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import dao.RuleDao;
 import dao.impl.RuleDaoImpl;
 import model.Human;
@@ -29,8 +31,8 @@ public class RulesManager {
 		ruleDao.fight(human, zombie, room, item);
 	}
 
-	public Boolean endCondition(Human human, Zombie zombie) {
-		return ruleDao.endCondition(human, zombie);
+	public Boolean endCondition(Human human, List<Zombie> zombies) {
+		return ruleDao.endCondition(human, zombies);
 	}
 
 	public Boolean checkAliveHuman(Human human) {
@@ -52,5 +54,4 @@ public class RulesManager {
 	public void moveZombie(Zombie zombie, Integer rooms) {
 		ruleDao.moveZombie(zombie, rooms);
 	}
-
 }

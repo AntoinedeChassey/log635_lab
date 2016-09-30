@@ -13,6 +13,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import dao.ZombieDao;
+import model.Human;
 import model.Zombie;
 
 public class ZombieDaoImpl implements ZombieDao {
@@ -54,6 +55,18 @@ public class ZombieDaoImpl implements ZombieDao {
 			e.printStackTrace();
 		}
 		return zombies;
+	}
+
+	@Override
+	public List<Zombie> getZombiesInHumanRoom(List<Zombie> zombies, Human human) {
+		List<Zombie> zombiesInHumanRoom = new ArrayList<>();
+		for (int i = 0; i < zombies.size(); i++) {
+			if (zombies.get(i).getId_room() == human.getId_room()) {
+				zombiesInHumanRoom.add(zombies.get(i));
+			}
+			;
+		}
+		return zombiesInHumanRoom;
 	}
 
 }
