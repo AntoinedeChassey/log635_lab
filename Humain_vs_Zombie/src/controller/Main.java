@@ -33,6 +33,81 @@ public class Main {
 
 		System.out.println("Lancement du scénario...\n\n");
 
+		// Condition maître, qui vérifie que soit des humains existent, soit des
+		// zombies existent mais pas les deux
+		while (rules.masterEndCondition(humans, zombies))
+			main();
+
+		showHumans();
+		showZombies();
+		showHumansByRooms();
+		showZombiesByRooms();
+
+		System.out.println("Nombre d'itérations de fight dans les pièces: " + compteurIterationsFight);
+		System.out.println("Nombre d'itérations de move de zombies: " + compteurIterationsMove);
+
+	}
+
+	private static void showHumans() {
+		System.out.println("\n\nVie des humains existants:");
+		for (Human human : humans) {
+			System.out.println("\t" + human.getName() + ": " + human.getLife());
+		}
+	}
+
+	private static void showZombies() {
+		System.out.println("Vie des zombies existants:");
+		for (Zombie zombie : zombies) {
+			System.out.println("\t" + zombie.getName() + ": " + zombie.getLife());
+		}
+	}
+
+	private static void showHumansByRooms() {
+		System.out.println("Humains dans pièces:");
+		for (Human human : humans) {
+			System.out.println("\t" + human.getName() + " est dans la pièce " + human.getId_room());
+		}
+	}
+
+	private static void showZombiesByRooms() {
+		System.out.println("Zombies dans pièces:");
+		for (Zombie zombie : zombies) {
+			System.out.println("\t" + zombie.getName() + " est dans la pièce " + zombie.getId_room());
+		}
+	}
+
+	// Method that launches combat for human and zombies in the same room
+	private static void launch(Human humanInTheRoom, List<Zombie> zombiesInHumanRoom) {
+		while (rules.endCondition(humanInTheRoom, zombiesInHumanRoom)) {
+			for (Zombie zombie : zombiesInHumanRoom) {
+				// Variables
+				Room room = world.getRoomById(rooms, humanInTheRoom.getId_room());
+				Item item = world.getItemByRoomId(items, humanInTheRoom.getId_room());
+
+				System.out.println("L'humain " + humanInTheRoom.getName() + " se bat avec " + zombie.getName());
+				// Combat
+				rules.fight(humanInTheRoom, zombie, room, item);
+
+				// Set new weapon combat points
+				rules.setItemCombatPoints(humanInTheRoom, item);
+
+				compteurIterationsFight++;
+
+				System.out.println("[STAT] Vie humain: " + humanInTheRoom.getLife());
+				System.out.println("[STAT] Vie zombie: " + zombie.getLife());
+			}
+		}
+	}
+
+	private static Boolean thereAreHumans() {
+		if (!humans.isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private static void main() {
 		// Iteratation des règles
 		for (int j = 0; j < humans.size(); j++) {
 			// Check origins to set bonus or malus to human
@@ -48,9 +123,8 @@ public class Main {
 					// Si l'humain est dans la pièce du zombie
 					if (human.getId_room() == zombie.getId_room()) {
 
+						// Launch combat for human and zombies in the same room
 						launch(human, zombiesInHumanRoom);
-						System.out.println("Vie humain:" + human.getLife());
-						System.out.println("Vie zombie:" + zombie.getLife());
 						rules.removeTheDead(humans, human, zombies, zombie);
 
 					} else {
@@ -60,99 +134,22 @@ public class Main {
 						// ou un humain est vivant
 						// if (zombie.isAlive() &&
 						// world.zombieHasNoHumansToEat(zombies, humans)) {
-
-						rules.moveZombieToAliveHumanRoom(humans, zombie);
-						compteurIterationsMove++;
-						List<Zombie> newZombiesInHumanRoom = new ArrayList<>();
-						newZombiesInHumanRoom.add(zombie);
-						// relaunch with human and zombies in same room
-						launch(human, newZombiesInHumanRoom);
-						rules.removeTheDead(humans, human, zombies, zombie);
+						/*
+						 * Check if human doesn't already have zombies to fight
+						 * with
+						 */
+						if (rules.humanIsAlone(human, zombies) && rules.zombieIsAlone(zombie, humans)) {
+							rules.moveZombieToAliveHumanRoom(human, zombie);
+							compteurIterationsMove++;
+							List<Zombie> newZombiesInHumanRoom = new ArrayList<>();
+							newZombiesInHumanRoom.add(zombie);
+							// relaunch with human and zombies in same room
+							launch(human, newZombiesInHumanRoom);
+							rules.removeTheDead(humans, human, zombies, zombie);
+						}
 					}
 				}
 			}
-		}
-		
-		/*
-		 * 
-		 * 
-		 * 
-		 * 
-		 * TODO
-		 * FAIRE PLUSIEURS FOIS LA DEMARCHE CI-DESSUS
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 */
-
-		showHumans();
-		showZombies();
-		showHumansByRooms();
-		showZombiesByRooms();
-
-		System.out.println("Nombre d'itérations de fight: " + compteurIterationsFight);
-		System.out.println("Nombre d'itérations de move: " + compteurIterationsMove);
-
-	}
-
-	private static void showHumans() {
-		System.out.println("\n\nVie des humains existants:");
-		for (int i = 0; i < humans.size(); i++) {
-			System.out.println("\t" + humans.get(i).getName() + ": " + humans.get(i).getLife());
-		}
-	}
-
-	private static void showZombies() {
-		System.out.println("Vie des zombies existants:");
-		for (int i = 0; i < zombies.size(); i++) {
-			System.out.println("\t" + zombies.get(i).getName() + ": " + zombies.get(i).getLife());
-		}
-	}
-
-	private static void showHumansByRooms() {
-		System.out.println("Humains dans pièces:");
-		for (int i = 0; i < humans.size(); i++) {
-			System.out.println("\t" + humans.get(i).getName() + " est dans la pièce " + humans.get(i).getId_room());
-		}
-	}
-
-	private static void showZombiesByRooms() {
-		System.out.println("Zombies dans pièces:");
-		for (int i = 0; i < zombies.size(); i++) {
-			System.out.println("\t" + zombies.get(i).getName() + " est dans la pièce " + zombies.get(i).getId_room());
-		}
-	}
-
-	private static void launch(Human humanInTheRoom, List<Zombie> zombiesInHumanRoom) {
-		while (rules.endCondition(humanInTheRoom, zombiesInHumanRoom)) {
-			for (int i = 0; i < zombiesInHumanRoom.size(); i++) {
-				Zombie zombie = zombiesInHumanRoom.get(i);
-				// Variables
-				Room room = world.getRoomById(rooms, humanInTheRoom.getId_room());
-				Item item = world.getItemByRoomId(items, humanInTheRoom.getId_room());
-
-				System.out.println("L'humain " + humanInTheRoom.getName() + " se bat avec " + zombie.getName());
-				// Combat
-				rules.fight(humanInTheRoom, zombie, room, item);
-
-				// Set new weapon combat points
-				rules.setItemCombatPoints(humanInTheRoom, item);
-
-				compteurIterationsFight++;
-
-				System.out.println("Vie humain: " + humanInTheRoom.getLife());
-				System.out.println("Vie zombie: " + zombie.getLife());
-			}
-		}
-	}
-
-	private static Boolean thereAreHumans() {
-		if (!humans.isEmpty()) {
-			return true;
-		} else {
-			return false;
 		}
 	}
 }

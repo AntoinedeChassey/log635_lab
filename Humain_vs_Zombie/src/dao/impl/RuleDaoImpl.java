@@ -12,6 +12,53 @@ import model.Zombie;
 public class RuleDaoImpl implements RuleDao {
 
 	@Override
+	public boolean masterEndCondition(List<Human> humans, List<Zombie> zombies) {
+		if (humans.isEmpty() || zombies.isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	// @Override
+	// public Boolean endCondition(Human humanInTheRoom, List<Zombie>
+	// zombiesInHumanRoom) {
+	// Boolean stop = true;
+	// for (int i = 0; i < zombiesInHumanRoom.size(); i++) {
+	// if (humanInTheRoom.isAlive() || zombiesInHumanRoom.get(i).isAlive()) {
+	// stop = false;
+	// } else {
+	// stop = true;
+	// break;
+	// }
+	// }
+	// return stop;
+	// }
+
+	@Override
+	public Boolean endCondition(Human humanInTheRoom, List<Zombie> zombiesInHumanRoom) {
+		boolean[] zombiesAlive = new boolean[zombiesInHumanRoom.size()];
+
+		// Si l'humain dans la pièce est en vie
+		if (humanInTheRoom.isAlive()) {
+			for (int i = 0; i < zombiesInHumanRoom.size(); i++) {
+				if (zombiesInHumanRoom.get(i).isAlive()) {
+					zombiesAlive[i] = true;
+				} else {
+					zombiesAlive[i] = false;
+				}
+
+			}
+			// Si aucun zombie mort (aucun false dans la liste), return true
+			for (boolean b : zombiesAlive)
+				if (!b)
+					return false;
+			return true;
+		}
+		return false;
+	}
+
+	@Override
 	public void fight(Human human, Zombie zombie, Room room, Item item) {
 
 		// Calcul du ratio de combat en fonction de la taille et
@@ -23,6 +70,7 @@ public class RuleDaoImpl implements RuleDao {
 		// Calcul des points d'environnements (fonction de la taille et
 		// luminosité de la pièce
 		double environmentInfluence = (double) room.getLight() + (double) room.getSize();
+
 		// System.out.println("Environnement: " + environmentInfluence);
 
 		// Calcul des points de damages (fonction de l'aggressivité, de la
@@ -30,6 +78,21 @@ public class RuleDaoImpl implements RuleDao {
 		// objets)
 		double humanDamage = powerRatio * item.getDamage();
 		double zombieDamage = powerRatio * 10;
+
+		if (environmentInfluence > 50) {
+			Random ran = new Random();
+			double criticalShot = ran.nextInt(3);
+			humanDamage = humanDamage + criticalShot;
+			System.out.println(
+					"Critical shot due to environment influence - " + human.getName() + " gets +" + criticalShot);
+		}
+		if (environmentInfluence > 75) {
+			Random ran = new Random();
+			double criticalShot = ran.nextInt(7);
+			humanDamage = humanDamage + criticalShot;
+			System.out.println(
+					"Critical shot due to environment influence - " + human.getName() + " gets +" + criticalShot);
+		}
 
 		if (powerRatio < 0.5) {
 			// Nouveaux faits (zombieDamage)
@@ -84,44 +147,6 @@ public class RuleDaoImpl implements RuleDao {
 		}
 	}
 
-	// @Override
-	// public Boolean endCondition(Human humanInTheRoom, List<Zombie>
-	// zombiesInHumanRoom) {
-	// Boolean stop = true;
-	// for (int i = 0; i < zombiesInHumanRoom.size(); i++) {
-	// if (humanInTheRoom.isAlive() || zombiesInHumanRoom.get(i).isAlive()) {
-	// stop = false;
-	// } else {
-	// stop = true;
-	// break;
-	// }
-	// }
-	// return stop;
-	// }
-
-	@Override
-	public Boolean endCondition(Human humanInTheRoom, List<Zombie> zombiesInHumanRoom) {
-		boolean[] zombiesAlive = new boolean[zombiesInHumanRoom.size()];
-		
-		// Si l'humain dans la pièce est en vie
-		if (humanInTheRoom.isAlive()) {
-			for (int i = 0; i < zombiesInHumanRoom.size(); i++) {
-				if (zombiesInHumanRoom.get(i).isAlive()) {
-					zombiesAlive[i] = true;
-				} else {
-					zombiesAlive[i] = false;
-				}
-
-			}
-			// Si aucun zombie mort (aucun false dans la liste), return true
-			for (boolean b : zombiesAlive)
-				if (!b)
-					return false;
-			return true;
-		}
-		return false;
-	}
-
 	@Override
 	public Boolean checkAliveHuman(Human human) {
 		if (human.isAlive()) {
@@ -162,16 +187,26 @@ public class RuleDaoImpl implements RuleDao {
 		}
 	}
 
+	// @Override
+	// public void moveZombieToAliveHumanRoom(List<Human> humans, Zombie zombie)
+	// {
+	// for (Human human : humans) {
+	// if (human.isAlive()) {
+	// System.out.println("[MOVE] Le zombie " + zombie.getName() + " va dans la
+	// pièce de " + human.getName()
+	// + " (" + human.getId_room() + ")");
+	// zombie.setId_room(human.getId_room());
+	// break;
+	// }
+	// }
+	// }
+
 	@Override
-	public void moveZombieToAliveHumanRoom(List<Human> humans, Zombie zombie) {
-		for (int i = 0; i < humans.size(); i++) {
-			Human human = humans.get(i);
-			if (human.isAlive()) {
-				System.out.println("[MOVE] Le zombie " + zombie.getName() + " va dans la pièce de " + human.getName()
-						+ " (" + human.getId_room() + ")");
-				zombie.setId_room(human.getId_room());
-				break;
-			}
+	public void moveZombieToAliveHumanRoom(Human human, Zombie zombie) {
+		if (human.isAlive()) {
+			System.out.println("[MOVE] Le zombie " + zombie.getName() + " va dans la pièce de " + human.getName() + " ("
+					+ human.getId_room() + ")\n");
+			zombie.setId_room(human.getId_room());
 		}
 	}
 
@@ -186,4 +221,27 @@ public class RuleDaoImpl implements RuleDao {
 			zombies.remove(zombie);
 		}
 	}
+
+	@Override
+	public boolean humanIsAlone(Human human, List<Zombie> zombies) {
+		for (Zombie zombie : zombies) {
+			if (human.getId_room() == zombie.getId_room()) {
+				return false;
+			}
+		}
+		System.out.println("\t\tL'humain " + human.getName() + " est tout seul!\n");
+		return true;
+	}
+
+	@Override
+	public boolean zombieIsAlone(Zombie zombie, List<Human> humans) {
+		for (Human human : humans) {
+			if (zombie.getId_room() == human.getId_room()) {
+				return false;
+			}
+		}
+		System.out.println("\t\tLe zombie " + zombie.getName() + " est tout seul!\n");
+		return true;
+	}
+
 }
