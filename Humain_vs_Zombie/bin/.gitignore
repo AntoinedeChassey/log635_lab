@@ -1,3 +1,4 @@
-/dao/
+/config_back.json
+/config_backup.json
 /controller/
-/model/
+/dao/

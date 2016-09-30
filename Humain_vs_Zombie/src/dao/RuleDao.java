@@ -21,6 +21,8 @@ public interface RuleDao {
 
 	public void checkOrigin(Human human);
 
-	public void moveZombie(Zombie zombie, Integer rooms);
+	public void moveZombieToAliveHumanRoom(List<Human> humans, Zombie zombie);
+
+	public void removeTheDead(List<Human> humans, Human human, List<Zombie> zombies, Zombie zombie);
 
 }

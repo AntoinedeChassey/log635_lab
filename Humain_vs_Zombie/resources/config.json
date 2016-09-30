@@ -10,7 +10,7 @@
 			"size": 185,
 			"weight": 80,
 			"combat_capacity": 75,
-            "job": "Policeman"
+            		"job": "Policeman"
 			},
 			{
 			"id_human": 2,
@@ -21,7 +21,7 @@
 			 "size": 180,
 			"weight": 75,
 			"combat_capacity": 90,
-            "job": "Banker"
+            		"job": "Banker"
 			},
 			{
 			"id_human": 3,
@@ -32,7 +32,7 @@
 			"size": 175,
 			"weight": 65,
 			"combat_capacity": 60,
-            "job": "Cleaning lady"
+           		"job": "Cleaning lady"
 			},
 			{
 			"id_human": 4,
@@ -43,7 +43,7 @@
 			"size": 181,
 			"weight": 79,
 			"combat_capacity": 70,
-            "job": "Fireman"
+            		"job": "Fireman"
 			}
 		],
 		
