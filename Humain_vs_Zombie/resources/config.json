@@ -40,10 +40,21 @@
 			"name": "Johnny",
 			"life": 100,
 			"age": 26,
-			"size": 181,
+			"size": 172,
 			"weight": 79,
-			"combat_capacity": 70,
+			"combat_capacity": 50,
             		"job": "Fireman"
+			},
+			{
+			"id_human": 5,
+			"id_room": 5,
+			"name": "Ryan",
+			"life": 100,
+			"age": 28,
+			"size": 175,
+			"weight": 88,
+			"combat_capacity": 33,
+            		"job": "Soldier"
 			}
 		],
 		
@@ -66,9 +77,9 @@
 			{
 			"id_item": 3,
 			"id_room": 3,
-			"name": "shotgun",
-			"damage": 95,
-			"resistance": 80
+			"name": "old shotgun",
+			"damage": 64,
+			"resistance": 70
 			},
 			{
 			"id_item": 4,
@@ -76,6 +87,13 @@
 			"name": "scissors",
 			"damage": 42,
 			"resistance": 85
+			},
+			{
+			"id_item": 5,
+			"id_room": 5,
+			"name": "knife",
+			"damage": 67,
+			"resistance": 56
 			}
 		],
 
@@ -104,6 +122,12 @@
 			"name": "Kitchen",
 			"size": 30,
 			"light": 80
+			},
+			{
+			"id_room": 5,
+			"name": "Entrance",
+			"size": 12,
+			"light": 37
 			}
 		],
 		
@@ -156,6 +180,22 @@
 			"life": 100,
 			"aggressivity": 64,
 			"size": 174
+			},
+			{
+			"id_zombie": 7,
+			"id_room": 5,
+			"name": "Gregoire",
+			"life": 100,
+			"aggressivity": 74,
+			"size": 178
+			},
+			{
+			"id_zombie": 8,
+			"id_room": 5,
+			"name": "DSK",
+			"life": 100,
+			"aggressivity": 92,
+			"size": 191
 			}		
 		]
 }

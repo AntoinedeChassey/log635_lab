@@ -8,7 +8,7 @@ import model.Room;
 import model.Zombie;
 
 public interface RuleDao {
-	
+
 	public boolean masterEndCondition(List<Human> humans, List<Zombie> zombies);
 
 	public Boolean endCondition(Human human, List<Zombie> zombies);
@@ -23,8 +23,6 @@ public interface RuleDao {
 
 	public void checkOrigin(Human human);
 
-//	public void moveZombieToAliveHumanRoom(List<Human> humans, Zombie zombie);
-	
 	public void moveZombieToAliveHumanRoom(Human human, Zombie zombie);
 
 	public void removeTheDead(List<Human> humans, Human human, List<Zombie> zombies, Zombie zombie);
@@ -32,4 +30,7 @@ public interface RuleDao {
 	public boolean humanIsAlone(Human human, List<Zombie> zombies);
 
 	public boolean zombieIsAlone(Zombie zombie, List<Human> humans);
+
+	public boolean thereAreHumans(List<Human> humans);
+
 }

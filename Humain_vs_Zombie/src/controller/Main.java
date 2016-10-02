@@ -14,15 +14,15 @@ public class Main {
 	private static Integer compteurIterationsMove = 0;
 
 	// Création du manager des faits
-	private static FactsManager world = FactsManager.getInstance();
+	private static FactsManager facts = FactsManager.getInstance();
 	// Création du manager des règles
 	private static RulesManager rules = RulesManager.getInstance();
 
 	// Création des faits
-	private static List<Human> humans = world.getAllHumans();
-	private static List<Item> items = world.getAllItems();
-	private static List<Room> rooms = world.getAllRooms();
-	private static List<Zombie> zombies = world.getAllZombies();
+	private static List<Human> humans = facts.getAllHumans();
+	private static List<Item> items = facts.getAllItems();
+	private static List<Room> rooms = facts.getAllRooms();
+	private static List<Zombie> zombies = facts.getAllZombies();
 
 	public static void main(String[] args) {
 
@@ -81,8 +81,8 @@ public class Main {
 		while (rules.endCondition(humanInTheRoom, zombiesInHumanRoom)) {
 			for (Zombie zombie : zombiesInHumanRoom) {
 				// Variables
-				Room room = world.getRoomById(rooms, humanInTheRoom.getId_room());
-				Item item = world.getItemByRoomId(items, humanInTheRoom.getId_room());
+				Room room = facts.getRoomById(rooms, humanInTheRoom.getId_room());
+				Item item = facts.getItemByRoomId(items, humanInTheRoom.getId_room());
 
 				System.out.println("L'humain " + humanInTheRoom.getName() + " se bat avec " + zombie.getName());
 				// Combat
@@ -99,14 +99,6 @@ public class Main {
 		}
 	}
 
-	private static Boolean thereAreHumans() {
-		if (!humans.isEmpty()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	private static void main() {
 		// Iteratation des règles
 		for (int j = 0; j < humans.size(); j++) {
@@ -114,11 +106,11 @@ public class Main {
 			rules.checkOrigin(humans.get(j));
 
 			for (int k = 0; k < zombies.size(); k++) {
-				if (thereAreHumans()) {
+				if (rules.thereAreHumans(humans)) {
 					// Variables
 					Human human = humans.get(j);
 					Zombie zombie = zombies.get(k);
-					List<Zombie> zombiesInHumanRoom = world.getZombiesInHumanRoom(zombies, human);
+					List<Zombie> zombiesInHumanRoom = facts.getZombiesInHumanRoom(zombies, human);
 
 					// Si l'humain est dans la pièce du zombie
 					if (human.getId_room() == zombie.getId_room()) {
@@ -133,7 +125,7 @@ public class Main {
 						// AVEC UN HUMAIN, alors il va dans une pièce
 						// ou un humain est vivant
 						// if (zombie.isAlive() &&
-						// world.zombieHasNoHumansToEat(zombies, humans)) {
+						// facts.zombieHasNoHumansToEat(zombies, humans)) {
 						/*
 						 * Check if human doesn't already have zombies to fight
 						 * with

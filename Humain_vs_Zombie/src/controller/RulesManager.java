@@ -51,10 +51,11 @@ public class RulesManager {
 		ruleDao.checkOrigin(human);
 	}
 
-//	public void moveZombieToAliveHumanRoom(List<Human> humans, Zombie zombie) {
-//		ruleDao.moveZombieToAliveHumanRoom(humans, zombie);
-//	}
-	
+	// public void moveZombieToAliveHumanRoom(List<Human> humans, Zombie zombie)
+	// {
+	// ruleDao.moveZombieToAliveHumanRoom(humans, zombie);
+	// }
+
 	public void moveZombieToAliveHumanRoom(Human human, Zombie zombie) {
 		ruleDao.moveZombieToAliveHumanRoom(human, zombie);
 	}
@@ -73,5 +74,9 @@ public class RulesManager {
 
 	public boolean zombieIsAlone(Zombie zombie, List<Human> humans) {
 		return ruleDao.zombieIsAlone(zombie, humans);
+	}
+
+	public boolean thereAreHumans(List<Human> humans) {
+		return ruleDao.thereAreHumans(humans);
 	}
 }

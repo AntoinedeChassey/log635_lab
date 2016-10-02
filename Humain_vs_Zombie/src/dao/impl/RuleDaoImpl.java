@@ -20,21 +20,6 @@ public class RuleDaoImpl implements RuleDao {
 		}
 	}
 
-	// @Override
-	// public Boolean endCondition(Human humanInTheRoom, List<Zombie>
-	// zombiesInHumanRoom) {
-	// Boolean stop = true;
-	// for (int i = 0; i < zombiesInHumanRoom.size(); i++) {
-	// if (humanInTheRoom.isAlive() || zombiesInHumanRoom.get(i).isAlive()) {
-	// stop = false;
-	// } else {
-	// stop = true;
-	// break;
-	// }
-	// }
-	// return stop;
-	// }
-
 	@Override
 	public Boolean endCondition(Human humanInTheRoom, List<Zombie> zombiesInHumanRoom) {
 		boolean[] zombiesAlive = new boolean[zombiesInHumanRoom.size()];
@@ -71,8 +56,19 @@ public class RuleDaoImpl implements RuleDao {
 		// luminosité de la pièce
 		double environmentInfluence = (double) room.getLight() + (double) room.getSize();
 
-		// System.out.println("Environnement: " + environmentInfluence);
+		// Malus pour les gros
+		double weightInfluence = (double) human.getWeight();
 
+		// Malus pour les vieux
+		double ageInfluence = (double) human.getAge();
+
+		// Malus de vie pour saignement
+
+		double humanLife = human.getLife();
+
+		if (humanLife < 30) {
+			human.setLife(humanLife - 3);
+		}
 		// Calcul des points de damages (fonction de l'aggressivité, de la
 		// taille, de la capacité de combat et des points de combats des
 		// objets)
@@ -94,14 +90,26 @@ public class RuleDaoImpl implements RuleDao {
 					"Critical shot due to environment influence - " + human.getName() + " gets +" + criticalShot);
 		}
 
+		if (weightInfluence > 80) {
+			Random ran = new Random();
+			double malus = ran.nextInt(10);
+			humanDamage = humanDamage - malus;
+			System.out.println("Malus due to weight influence - " + human.getName() + " gets -" + malus);
+		}
+
+		if (ageInfluence > 35) {
+			Random ran = new Random();
+			double malus = ran.nextInt(10);
+			humanDamage = humanDamage - malus;
+			System.out.println("Malus due to age influence - " + human.getName() + " gets -" + malus);
+		}
+
 		if (powerRatio < 0.5) {
 			// Nouveaux faits (zombieDamage)
 			zombieDamage = zombieDamage / 4;
-			// System.out.println(human.getName() + " défonce le zombie " +
-			// zombie.getName() + " à coup de "
-			// + item.getName() + "! (powerRatio: " + powerRatio + ",
-			// humanDamage: " + humanDamage
-			// + ", zombieDamage: " + zombieDamage + ")");
+			System.out.println("[FIGHT] " + human.getName() + " défonce le zombie " + zombie.getName() + " à coup de "
+					+ item.getName() + "! (powerRatio: " + powerRatio + ", humanDamage: " + humanDamage
+					+ ", zombieDamage: " + zombieDamage + ")");
 			zombie.getDamage(humanDamage);
 			human.getDamage(zombieDamage);
 		}
@@ -110,11 +118,9 @@ public class RuleDaoImpl implements RuleDao {
 			// Nouveaux faits (humanDamage et zombieDamage)
 			humanDamage = humanDamage / 2;
 			zombieDamage = zombieDamage / 3;
-			// System.out.println(human.getName() + " rivalise beaucoup le
-			// zombie " + zombie.getName() + " à coup de "
-			// + item.getName() + "! (powerRatio: " + powerRatio + ",
-			// humanDamage: " + humanDamage
-			// + ", zombieDamage: " + zombieDamage + ")");
+			System.out.println("[FIGHT] " + human.getName() + " rivalise beaucoup le zombie " + zombie.getName()
+					+ " à coup de " + item.getName() + "! (powerRatio: " + powerRatio + ", humanDamage: " + humanDamage
+					+ ", zombieDamage: " + zombieDamage + ")");
 			zombie.getDamage(humanDamage);
 			human.getDamage(zombieDamage);
 		}
@@ -123,21 +129,17 @@ public class RuleDaoImpl implements RuleDao {
 			// Nouveaux faits (humanDamage et zombieDamage)
 			humanDamage = humanDamage / 3;
 			zombieDamage = zombieDamage / 2;
-			// System.out.println(human.getName() + " rivalise un peu le zombie
-			// " + zombie.getName() + " à coup de "
-			// + item.getName() + "! (powerRatio: " + powerRatio + ",
-			// humanDamage: " + humanDamage
-			// + ", zombieDamage: " + zombieDamage + ")");
+			System.out.println("[FIGHT] " + human.getName() + " rivalise un peu le zombie " + zombie.getName()
+					+ " à coup de " + item.getName() + "! (powerRatio: " + powerRatio + ", humanDamage: " + humanDamage
+					+ ", zombieDamage: " + zombieDamage + ")");
 			zombie.getDamage(humanDamage);
 			human.getDamage(zombieDamage);
 		} else if (powerRatio > 1.5) {
 			// Nouveaux faits (humanDamage)
 			humanDamage = humanDamage / 4;
-			// System.out.println(human.getName() + " se fait défoncer par le
-			// zombie " + zombie.getName() + " à coup de "
-			// + item.getName() + "! (powerRatio: " + powerRatio + ",
-			// humanDamage: " + humanDamage
-			// + ", zombieDamage: " + zombieDamage + ")");
+			System.out.println("[FIGHT] " + human.getName() + " se fait défoncer par le zombie " + zombie.getName()
+					+ " à coup de " + item.getName() + "! (powerRatio: " + powerRatio + ", humanDamage: " + humanDamage
+					+ ", zombieDamage: " + zombieDamage + ")");
 			zombie.getDamage(humanDamage);
 			human.getDamage(zombieDamage);
 		}
@@ -187,20 +189,6 @@ public class RuleDaoImpl implements RuleDao {
 		}
 	}
 
-	// @Override
-	// public void moveZombieToAliveHumanRoom(List<Human> humans, Zombie zombie)
-	// {
-	// for (Human human : humans) {
-	// if (human.isAlive()) {
-	// System.out.println("[MOVE] Le zombie " + zombie.getName() + " va dans la
-	// pièce de " + human.getName()
-	// + " (" + human.getId_room() + ")");
-	// zombie.setId_room(human.getId_room());
-	// break;
-	// }
-	// }
-	// }
-
 	@Override
 	public void moveZombieToAliveHumanRoom(Human human, Zombie zombie) {
 		if (human.isAlive()) {
@@ -242,6 +230,15 @@ public class RuleDaoImpl implements RuleDao {
 		}
 		System.out.println("\t\tLe zombie " + zombie.getName() + " est tout seul!\n");
 		return true;
+	}
+
+	@Override
+	public boolean thereAreHumans(List<Human> humans) {
+		if (!humans.isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
