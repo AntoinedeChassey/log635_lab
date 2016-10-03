@@ -8,11 +8,20 @@ import model.Room;
 import model.Zombie;
 
 public interface RuleDao {
+	
+	/*
+	 * 
+	 * 
+	 * See RuleDaoImpl, plusieurs regles comportent des sous-regles...
+	 * 
+	 * 
+	 */
 
 	public boolean masterEndCondition(List<Human> humans, List<Zombie> zombies);
 
 	public Boolean endCondition(Human human, List<Zombie> zombies);
 
+	// ~ 10 sous-regles inside fight
 	public void fight(Human human, Zombie zombie, Room room, Item item);
 
 	public Boolean checkAliveHuman(Human human);

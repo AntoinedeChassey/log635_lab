@@ -100,7 +100,7 @@ public class Main {
 	}
 
 	private static void main() {
-		// Iteratation des règles
+		// Iteration des règles
 		for (int j = 0; j < humans.size(); j++) {
 			// Check origins to set bonus or malus to human
 			rules.checkOrigin(humans.get(j));
