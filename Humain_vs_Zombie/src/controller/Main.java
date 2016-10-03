@@ -34,7 +34,7 @@ public class Main {
 		System.out.println("Lancement du scénario...\n\n");
 
 		// Condition maître, qui vérifie que soit des humains existent, soit des
-		// zombies existent mais pas les deux
+		// zombies existent sinon continue
 		while (rules.masterEndCondition(humans, zombies))
 			main();
 

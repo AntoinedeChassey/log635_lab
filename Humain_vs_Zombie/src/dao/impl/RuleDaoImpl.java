@@ -76,32 +76,32 @@ public class RuleDaoImpl implements RuleDao {
 		double zombieDamage = powerRatio * 10;
 
 		if (environmentInfluence > 50) {
-			Random ran = new Random();
-			double criticalShot = ran.nextInt(3);
-			humanDamage = humanDamage + criticalShot;
+//			Random ran = new Random();
+//			double criticalShot = ran.nextInt(3);
+			humanDamage = humanDamage + 1;
 			System.out.println(
-					"Critical shot due to environment influence - " + human.getName() + " gets +" + criticalShot);
+					"Critical shot due to environment influence - " + human.getName() + " gets +" + 1);
 		}
 		if (environmentInfluence > 75) {
-			Random ran = new Random();
-			double criticalShot = ran.nextInt(7);
-			humanDamage = humanDamage + criticalShot;
+//			Random ran = new Random();
+//			double criticalShot = ran.nextInt(7);
+			humanDamage = humanDamage + 2;
 			System.out.println(
-					"Critical shot due to environment influence - " + human.getName() + " gets +" + criticalShot);
+					"Critical shot due to environment influence - " + human.getName() + " gets +" + 2);
 		}
 
 		if (weightInfluence > 80) {
-			Random ran = new Random();
-			double malus = ran.nextInt(10);
-			humanDamage = humanDamage - malus;
-			System.out.println("Malus due to weight influence - " + human.getName() + " gets -" + malus);
+//			Random ran = new Random();
+//			double malus = ran.nextInt(10);
+			humanDamage = humanDamage - 5;
+			System.out.println("Malus due to weight influence - " + human.getName() + " gets -" + 5);
 		}
 
 		if (ageInfluence > 35) {
-			Random ran = new Random();
-			double malus = ran.nextInt(10);
-			humanDamage = humanDamage - malus;
-			System.out.println("Malus due to age influence - " + human.getName() + " gets -" + malus);
+//			Random ran = new Random();
+//			double malus = ran.nextInt(8);
+			humanDamage = humanDamage - 5;
+			System.out.println("Malus due to age influence - " + human.getName() + " gets -" + 5);
 		}
 
 		if (powerRatio < 0.5) {
@@ -172,6 +172,7 @@ public class RuleDaoImpl implements RuleDao {
 		if (item.getDamage() - (100 - item.getResistance()) / 10 > 1) {
 			item.setDamage(item.getDamage() - (100 - item.getResistance()) / 10);
 		} else {
+			// Si l'equipement est cassé, 1 de degat
 			item.setDamage(1);
 		}
 	}
