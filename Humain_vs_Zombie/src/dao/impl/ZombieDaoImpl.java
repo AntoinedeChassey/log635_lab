@@ -26,7 +26,7 @@ public class ZombieDaoImpl implements ZombieDao {
 
 		try {
 
-			Object obj = parser.parse(new FileReader("resources/config.json"));
+			Object obj = parser.parse(new FileReader("resources/facts.json"));
 
 			JSONObject jsonObject = (JSONObject) obj;
 

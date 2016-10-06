@@ -25,7 +25,7 @@ public class HumanDaoImpl implements HumanDao {
 
 		try {
 
-			Object obj = parser.parse(new FileReader("resources/config.json"));
+			Object obj = parser.parse(new FileReader("resources/facts.json"));
 
 			JSONObject jsonObject = (JSONObject) obj;
 

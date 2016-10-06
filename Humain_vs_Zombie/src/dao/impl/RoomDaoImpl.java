@@ -25,7 +25,7 @@ public class RoomDaoImpl implements RoomDao {
 
 		try {
 
-			Object obj = parser.parse(new FileReader("resources/config.json"));
+			Object obj = parser.parse(new FileReader("resources/facts.json"));
 
 			JSONObject jsonObject = (JSONObject) obj;
 
